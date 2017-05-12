@@ -5,6 +5,9 @@ import de.hsa.games.fastsquirrel.XY;
 import de.hsa.games.fastsquirrel.core.Board;
 import de.hsa.games.fastsquirrel.core.Game;
 import de.hsa.games.fastsquirrel.core.HandOperatedMasterSquirrel;
+import javafx.scene.input.KeyCode;
+
+import static de.hsa.games.fastsquirrel.console.ConsoleUI.command;
 
 public class ConsoleSinglePlayer extends Game {
     private HandOperatedMasterSquirrel player = new HandOperatedMasterSquirrel(1);
@@ -78,12 +81,12 @@ public class ConsoleSinglePlayer extends Game {
 
     }
 
-    protected void processInputFps() {
+    public void processInputFps() {
         Command command;
         Object[] params;
         GameCommandType commandType;
 
-            command = ui.getLastCommand();
+            command = ConsoleUI.getLastCommand();
 
         if (command != null) {
             params = command.getParams();
@@ -123,6 +126,53 @@ public class ConsoleSinglePlayer extends Game {
                 case SPAWN_MINI:
                     spawnMini(params);
                     break;
+            }
+        }
+
+
+    }
+
+    public void processInputFps2() {
+        KeyCode command;
+
+        command = ConsoleUI.getLastKey();
+
+        if (command != null) {
+
+
+            switch (command) {
+                case W:
+                    this.squirrelMove = new XY(-1, 0);
+                    player.nextStep(getState().getContext(), squirrelMove);
+                    updateAfterMaster();
+                    break;
+                case D:
+                    this.squirrelMove = new XY(0, 1);
+                    player.nextStep(getState().getContext(), squirrelMove);
+                    updateAfterMaster();
+                    break;
+                case S:
+                    this.squirrelMove = new XY(1, 0);
+                    player.nextStep(getState().getContext(), squirrelMove);
+                    updateAfterMaster();
+                    break;
+                case A:
+                    this.squirrelMove = new XY(0, -1);
+                    player.nextStep(getState().getContext(), squirrelMove);
+                    updateAfterMaster();
+                    break;
+                case H:
+                    help();
+                    break;
+                case O:
+                    all();
+                    break;
+                case M:
+                    masterEnergy();
+                    break;
+                /*case N:
+                    spawnMini(params);
+                    break;*/
             }
         }
 

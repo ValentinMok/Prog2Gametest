@@ -2,6 +2,7 @@ package de.hsa.games.fastsquirrel.console;
 
 import de.hsa.games.fastsquirrel.UI;
 import de.hsa.games.fastsquirrel.core.BoardView;
+import javafx.scene.input.KeyCode;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,6 +10,7 @@ import java.io.PrintStream;
 
 public class ConsoleUI implements UI {
     public static Command command=null;
+    public static KeyCode key=null;
 
     public Command getCommand() throws ScanExceptions{
         PrintStream outputStream = System.out;
@@ -21,8 +23,21 @@ public class ConsoleUI implements UI {
         }
     }
 
+    public static void setKey(KeyCode newkey){
+        key=newkey;
+    }
 
-    public Command getLastCommand(){
+
+    public static KeyCode getLastKey(){
+        KeyCode newkey = key;
+        key=null;
+        return newkey;
+
+    }
+
+
+
+    public static Command getLastCommand(){
         Command direction = command;
         command=null;
         return direction;

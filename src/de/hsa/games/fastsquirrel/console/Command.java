@@ -3,13 +3,14 @@ package de.hsa.games.fastsquirrel.console;
 
 public class Command {
 
-    private CommandTypeInfo commandType;
-    private Object[] params;
+    public CommandTypeInfo commandType;
+    public Object[] params;
 
-    Command(CommandTypeInfo commandType, Object[] params) {
+    public Command(CommandTypeInfo commandType, Object[] params) {
         this.commandType = commandType;
         this.params = params;
     }
+
 
 
     Object[] getParams() {

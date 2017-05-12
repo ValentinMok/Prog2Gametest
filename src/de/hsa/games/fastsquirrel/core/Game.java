@@ -13,7 +13,7 @@ public class Game {
     private State gameState;
     private BoardView view;
     private FlattenedBoard flattenedBoard;
-    private int FramesPerSecond = 1;
+    public int FramesPerSecond = 1;
 
     protected UI ui = new ConsoleUI();
 
@@ -30,12 +30,6 @@ public class Game {
         }
     }
 
-
-
-    private void render(){
-        ui.render(view);
-    }
-
     public void startGame() throws ScanExceptions {
         try {
             Thread.sleep( 1000);
@@ -44,35 +38,47 @@ public class Game {
         }
 
 
-            Timer timer = new Timer();
+        Timer timer = new Timer();
 
 
-            timer.schedule(new TimerTask() {
+        timer.schedule(new TimerTask() {
 
-                public void run() {
+            public void run() {
 
+                render();
+                processInputFps();
+                update();
 
-                    render();
-                    processInputFps();
-                    update();
-
-                }
-            },1,1000/FramesPerSecond );
-
-
+            }
+        },1,1000/FramesPerSecond );
 
     }
 
 
-    protected void processInputFps(){
 
+
+    private void render(){
+        ui.render(view);
     }
 
+
+
+    public BoardView getView(){
+        return view;
+    }
+
+
+    public void processInputFps(){
+
+    }
+    public void processInputFps2(){
+
+    }
 
     protected void processInput(){
 
     }
-    protected void update(){
+    public void update(){
         gameState.update();
         flattenedBoard=gameState.flattenedBoard();
         view=flattenedBoard;
