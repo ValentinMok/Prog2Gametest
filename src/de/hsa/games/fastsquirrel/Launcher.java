@@ -1,5 +1,6 @@
 package de.hsa.games.fastsquirrel;
 
+import de.hsa.games.fastsquirrel.console.ConsoleBotGame;
 import de.hsa.games.fastsquirrel.console.ConsoleSinglePlayer;
 import de.hsa.games.fastsquirrel.console.ConsoleUI;
 import de.hsa.games.fastsquirrel.console.ScanExceptions;
@@ -19,7 +20,7 @@ import java.util.TimerTask;
 public class Launcher extends Application{
     public static void main(String[] args) throws InterruptedException, ScanExceptions {
 
-        ConsoleSinglePlayer game = new ConsoleSinglePlayer();
+       // ConsoleSinglePlayer game = new ConsoleSinglePlayer();
 
         //game.run();
 
@@ -39,7 +40,8 @@ public class Launcher extends Application{
 
     public void start(Stage primaryStage) throws InterruptedException, ScanExceptions {
         BoardConfig boardConfig =new BoardConfig();
-        final ConsoleSinglePlayer game = new ConsoleSinglePlayer();
+        //final ConsoleSinglePlayer game = new ConsoleSinglePlayer();
+        final ConsoleBotGame game = new ConsoleBotGame();
         FxUI fxUI = FxUI.createInstance(boardConfig.getSize());
 
         primaryStage.setScene(fxUI);

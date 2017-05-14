@@ -13,7 +13,7 @@ public class Game {
     private State gameState;
     private BoardView view;
     private FlattenedBoard flattenedBoard;
-    public int FramesPerSecond = 1;
+    public int FramesPerSecond = 10;
 
     protected UI ui = new ConsoleUI();
 

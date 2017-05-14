@@ -5,6 +5,7 @@ import de.hsa.games.fastsquirrel.XY;
 import de.hsa.games.fastsquirrel.core.Board;
 import de.hsa.games.fastsquirrel.core.Game;
 import de.hsa.games.fastsquirrel.core.HandOperatedMasterSquirrel;
+import de.hsa.games.fastsquirrel.core.MasterSquirrel;
 import javafx.scene.input.KeyCode;
 
 import static de.hsa.games.fastsquirrel.console.ConsoleUI.command;
@@ -170,13 +171,28 @@ public class ConsoleSinglePlayer extends Game {
                 case M:
                     masterEnergy();
                     break;
-                /*case N:
-                    spawnMini(params);
-                    break;*/
+                case N:
+                    if(player.getEnergy()>=200) {
+                        spawnMini(100);
+                    }
+                    break;
+                case ESCAPE:
+                    System.exit(-1);
             }
         }
 
 
+    }
+
+    private void spawnMini(int params) {
+        int energy = params;
+        player.updateEnergy(-energy);
+        XY xy;
+
+        do {
+            xy = new XY(XY.addXy(player.getXy(), XY.randomVec()));
+        } while (!board.possibleSet(xy.x, xy.y));
+        board.createMinni(player.getId(), energy, xy);
     }
 
     private void spawnMini(Object[] params) {
@@ -193,6 +209,8 @@ public class ConsoleSinglePlayer extends Game {
     private void masterEnergy() {
         System.out.println("Your Energy: " + player.getEnergy());
     }
+
+
 
     private void all() {
         System.out.println(getState().getBoard().toString());

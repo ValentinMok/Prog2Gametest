@@ -10,20 +10,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 
 public class FxUI extends Scene implements UI {
-    public static int CELL_SIZE = 50;
+    public static int CELL_SIZE = 30;
     Canvas boardCanvas;
    static Label msgLabel;
+   ImageFiles image= new ImageFiles();
+
 
 
     public FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
@@ -37,6 +33,11 @@ public class FxUI extends Scene implements UI {
         Canvas boardCanvas = new Canvas(CELL_SIZE * boardSize.x, boardSize.y * CELL_SIZE);
         Label statusLabel = new Label();
         VBox top = new VBox();
+        /*
+        top.setPadding(new Insets(15, 12, 15, 12));
+        top.setSpacing(10);
+        top.setStyle("-fx-background-color: #336699;");
+        */
         top.getChildren().add(boardCanvas);
         top.getChildren().add(statusLabel);
         statusLabel.setText(String.valueOf(msgLabel));
@@ -78,36 +79,35 @@ public class FxUI extends Scene implements UI {
             for (int j = 0; j <= viewSize.y - 1; j++) {
                 switch (view.getEntityType(j, i)) {
                     case Wall:
-                        gc.setFill(Color.BLACK);
-                        gc.fillRect(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+                        gc.drawImage(image.getImage(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         break;
                     case GoodBeast:
-                        gc.setFill(Color.DARKGOLDENROD);
-                        gc.fillOval(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+
+                        gc.drawImage(image.getImage1(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         break;
                     case BadBeast:
-                        gc.setFill(Color.DARKCYAN);
-                        gc.fillOval(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+
+                        gc.drawImage(image.getImage2(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         break;
                     case GoodPlant:
-                        gc.setFill(Color.GREEN);
-                        gc.fillOval(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+
+                        gc.drawImage(image.getImage3(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         break;
                     case BadPlant:
-                        gc.setFill(Color.YELLOWGREEN);
-                        gc.fillOval(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+
+                        gc.drawImage(image.getImage4(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         break;
                     case MasterSquirrel:
-                        gc.setFill(Color.RED);
-                        gc.fillRect(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+                        gc.drawImage(image.getImage6(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
                         break;
                     case MinniSquirrel:
-                        gc.setFill(Color.GOLD);
-                        gc.fillRect(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+                        gc.drawImage(image.getImage5(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         break;
                     case HandoperatedMasterSquirrel:
-                        gc.setFill(Color.GOLD);
-                        gc.fillRect(i * CELL_SIZE, j * CELL_SIZE, 50, 50);
+                        gc.drawImage(image.getImage6(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        String s="Energy : "+view.getEnergy();
+                        message(s);
                         break;
                     case None:
 
@@ -116,14 +116,12 @@ public class FxUI extends Scene implements UI {
             }
 
 
-             gc.fillText("Where are the beasts?", 100, 100);
+
 
 
         }
     }
 
-
-    // @Override
     public void message(final String msg) {
         Platform.runLater(new Runnable() {
             @Override

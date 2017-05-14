@@ -3,14 +3,14 @@ package de.hsa.games.fastsquirrel.core;
 import de.hsa.games.fastsquirrel.XY;
 
 public class BoardConfig {
-    private int height=15;
-    private int width=15;
+    private int height=30;
+    private int width=30;
     private XY size=new XY(height,width);
-    private int wallCount=0;
-    private int goodPlantCount=3;
-    private int badPlantCount=3;
-    private int goodBeastCount=3;
-    private int badBeastCount=3;
+    private int wallCount=60;
+    private int goodPlantCount=8;
+    private int badPlantCount=8;
+    private int goodBeastCount=8;
+    private int badBeastCount=1;
 
     public void setSize(XY xy){
         size =xy;

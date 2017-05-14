@@ -2,6 +2,8 @@ package de.hsa.games.fastsquirrel.core;
 
 import de.hsa.games.fastsquirrel.*;
 
+import static de.hsa.games.fastsquirrel.EntityType.HandoperatedMasterSquirrel;
+
 public class FlattenedBoard implements EntityContext, BoardView {
     private Board board;
     private Entity[][] flatBoard;
@@ -17,6 +19,16 @@ public class FlattenedBoard implements EntityContext, BoardView {
         return board.getSize();
     }
 
+    public int getEnergy(){
+        for (int i=0;i<=board.board.length;i++){
+           if( board.board[i].getEntityType()== HandoperatedMasterSquirrel){
+            return  board.board[i].getEnergy();
+           }
+
+        }
+        return 0;
+    }
+
     public void tryMove(MinniSquirrel minniSquirrel, XY moveDirection) {
         if (minniSquirrel.getMove() <= 0) {
             XY newPos = new XY(XY.addXy(minniSquirrel.getXy(), moveDirection));
@@ -27,8 +39,29 @@ public class FlattenedBoard implements EntityContext, BoardView {
                 return;
             }
             EntityType type = getEntityType(newPos);
+
             switch (type) {
 
+                case GoodBeast:
+                    minniSquirrel.updateEnergy(newPosEnt.getEnergy());
+                    killAndReplace(newPosEnt);
+                    minniSquirrel.setXy(newPos);
+                    return;
+                case BadBeast:
+                    minniSquirrel.updateEnergy(newPosEnt.getEnergy());
+                    killAndReplace(newPosEnt);
+                    minniSquirrel.setXy(newPos);
+                    return;
+                case GoodPlant:
+                    minniSquirrel.updateEnergy(newPosEnt.getEnergy());
+                    killAndReplace(newPosEnt);
+                    minniSquirrel.setXy(newPos);
+                    return;
+                case BadPlant:
+                    minniSquirrel.updateEnergy(newPosEnt.getEnergy());
+                    killAndReplace(newPosEnt);
+                    minniSquirrel.setXy(newPos);
+                    return;
                 case Wall:
                     minniSquirrel.updateEnergy(Wall.ENERGY);
                     minniSquirrel.setMove(3);
@@ -48,10 +81,14 @@ public class FlattenedBoard implements EntityContext, BoardView {
                     }
                     kill(minniSquirrel);
                     return;
+                case HandoperatedMasterSquirrel:
+                    if (minniSquirrel.getPid() == newPosEnt.getId()) {
+                        newPosEnt.updateEnergy(minniSquirrel.getEnergy());
+                    }
+                    kill(minniSquirrel);
+                    return;
                 default:
-                    minniSquirrel.updateEnergy(newPosEnt.getEnergy());
-                    killAndReplace(newPosEnt);
-                    minniSquirrel.setXy(newPos);
+
             }
 
         } else {
@@ -161,7 +198,7 @@ public class FlattenedBoard implements EntityContext, BoardView {
         int m = -1;
         for (int i = 0; i <= board.board.length - 1; i++) {
             if (board.board[i] != null) {
-                if (board.board[i].getEntityType() == EntityType.HandoperatedMasterSquirrel) {
+                if (board.board[i].getEntityType() == HandoperatedMasterSquirrel) {
                     int disx = xy.x - board.board[i].getXy().x;
                     int disy = xy.y - board.board[i].getXy().y;
                     int dis = Math.abs(disx) + Math.abs(disy);
@@ -174,6 +211,28 @@ public class FlattenedBoard implements EntityContext, BoardView {
         }
         if (m >= 0) {
             return (PlayerEntity) board.board[m];
+        }
+        return null;
+    }
+
+    public PlayerEntity nearestEnemy(XY xy){
+        int distance = 7;
+        int m = -1;
+        for (int i = 0; i <= board.board.length - 1; i++) {
+            if (board.board[i] != null) {
+                if (board.board[i].getEntityType() == EntityType.GoodBeast | board.board[i].getEntityType() == EntityType.GoodPlant) {
+                    int disx = xy.x - board.board[i].getXy().x;
+                    int disy = xy.y - board.board[i].getXy().y;
+                    int dis = Math.abs(disx) + Math.abs(disy);
+                    if (dis < distance) {
+                        distance = dis;
+                        m = i;
+                    }
+                }
+            }
+        }
+        if (m >= 0) {
+           // return (PlayerEntity) board.board[m];
         }
         return null;
     }

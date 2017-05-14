@@ -39,6 +39,9 @@ public class Board {
                 }
             }
         }
+        for(int j=0;j<BC.getWallCount();j++){
+            addEntity(new Wall(ID++, randomPos()));
+        }
     }
 
 
@@ -137,6 +140,9 @@ public class Board {
     }
 
     public void createHandOperated(HandOperatedMasterSquirrel player) {
+        addEntity(player);
+    }
+    public void createMasterBot(MasterSquirrelBot player){
         addEntity(player);
     }
     public void createMinni(int pid,int energy,XY xy){

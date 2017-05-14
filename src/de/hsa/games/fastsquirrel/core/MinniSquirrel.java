@@ -25,7 +25,13 @@ public class MinniSquirrel extends PlayerEntity {
 		return EntityType.MinniSquirrel;
 	}
 	public void nextStep(EntityContext context){
-		context.tryMove(this, XY.randomVec());
+		Entity near=context.nearestEnemy(this.getXy());
+		XY moveDirection;
+		if (near !=null) {
+			moveDirection = new XY(newDirectionTowards(this.getXy(),near.getXy()));
+		}else moveDirection=XY.randomVec();
+		context.tryMove(this, moveDirection);
+
 	}
 
 

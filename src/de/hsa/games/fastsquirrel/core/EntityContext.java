@@ -15,6 +15,7 @@ public interface EntityContext {
 
     PlayerEntity nearestPlayerEntity(XY xy);
 
+    PlayerEntity nearestEnemy(XY xy);
 
     void kill(Entity entity);
 
