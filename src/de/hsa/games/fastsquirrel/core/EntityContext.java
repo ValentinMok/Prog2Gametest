@@ -23,4 +23,6 @@ public interface EntityContext {
 
     EntityType getEntityType(XY xy);
 
+    Entity[][] getFlatBoard();
+
 }

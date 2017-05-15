@@ -109,6 +109,11 @@ public class FxUI extends Scene implements UI {
                         String s="Energy : "+view.getEnergy();
                         message(s);
                         break;
+                    case MasterSquirrelBot:
+                        gc.drawImage(image.getImage6(),i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        String f="Energy : "+view.getEnergy();
+                        message(f);
+                        break;
                     case None:
 
                         break;

@@ -17,6 +17,7 @@ public class BadBeast extends Character {
 	public EntityType getEntityType(){
 		return EntityType.BadBeast;
 	}
+
 	public void nextStep(EntityContext context){
 		Entity near=context.nearestPlayerEntity(this.getXy());
 		XY moveDirection;

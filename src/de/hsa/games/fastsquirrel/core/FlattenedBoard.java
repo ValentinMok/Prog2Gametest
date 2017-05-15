@@ -21,7 +21,7 @@ public class FlattenedBoard implements EntityContext, BoardView {
 
     public int getEnergy(){
         for (int i=0;i<=board.board.length;i++){
-           if( board.board[i].getEntityType()== HandoperatedMasterSquirrel){
+           if( board.board[i].getEntityType()== HandoperatedMasterSquirrel | board.board[i].getEntityType()== EntityType.MasterSquirrelBot){
             return  board.board[i].getEnergy();
            }
 
@@ -235,6 +235,10 @@ public class FlattenedBoard implements EntityContext, BoardView {
            // return (PlayerEntity) board.board[m];
         }
         return null;
+    }
+
+    public Entity[][]getFlatBoard(){
+        return this.flatBoard;
     }
 
 

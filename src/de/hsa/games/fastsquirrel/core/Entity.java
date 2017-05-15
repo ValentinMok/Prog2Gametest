@@ -8,6 +8,7 @@ abstract class Entity {
     private int energy;
     private XY xy;
 
+
     protected Entity(int id, int energy, XY xy) {
         this.id = id;
         this.energy = energy;
@@ -35,6 +36,7 @@ abstract class Entity {
 
     void nextStep(EntityContext context) {
     }
+
 
     public String toString() {
         return this.getEntityType() + " mit ID: " + getId() + " Energy: " + getEnergy() + " Koordinaten " + xy;
